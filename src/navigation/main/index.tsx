@@ -1,13 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import type {Node} from 'react';
+import React, {Node, useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -17,7 +8,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
+import {useDispatch} from 'react-redux';
 import {
   Colors,
   DebugInstructions,
@@ -25,6 +16,11 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {setAuth} from '../../redux';
+
+const Stack = createNativeStackNavigator();
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -52,7 +48,19 @@ const Section = ({children, title}): Node => {
   );
 };
 
-const App: () => Node = () => {
+const Default = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(
+      setAuth({
+        email: 'aaaa',
+        phone: 'aadsasda',
+        token: 'asdad',
+        username: 'asdasd',
+      }),
+    );
+  }, []);
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -90,6 +98,16 @@ const App: () => Node = () => {
   );
 };
 
+export const MainNavigation = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="default" component={Default} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
 const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
@@ -108,5 +126,3 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
-
-export default App;
