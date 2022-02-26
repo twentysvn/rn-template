@@ -7,13 +7,13 @@
  */
 
 import {ApolloProvider} from '@apollo/client';
-import React, {Node} from 'react';
+import React from 'react';
 import {Provider} from 'react-redux';
 import {ApolloClientConfig} from './config';
 import {store} from './redux';
 import {MainNavigation} from './navigation';
 
-const App: () => Node = () => {
+const App = () => {
   return (
     <Provider store={store}>
       <ApolloProvider client={ApolloClientConfig}>
